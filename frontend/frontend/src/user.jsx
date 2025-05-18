@@ -1,16 +1,28 @@
-import { useCounter } from './hooks/conthook'; // ✅ adjust path as needed
-import React from 'react'; // ✅ Add this
+import { useCounter } from './hooks/conthook';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const User = () => {
-   const{state,dispatch}=useCounter()
-  console.log(`this is the state value:${state}`)
+function User() {
+  const navigate = useNavigate();
+  const { state, dispatch } = useCounter();
+  
+  console.log('State value:', state); // Better logging for objects
+
+  const handleClick = () => {
+    if (state.id) {
+      navigate(`/user/${state.id}`);
+    } else {
+      console.error('No user ID found in state');
+    }
+  };
+
   return (
     <div>
       <h1>{state.email}</h1>
       <h2>{state.role}</h2>
+      <button onClick={handleClick}>Get your details!!</button>
     </div>
-  
   );
+}
 
-};
 export default User;

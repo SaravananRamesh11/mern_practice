@@ -8,15 +8,15 @@ export const CounterContext = createContext();
 const localData = JSON.parse(localStorage.getItem("user"));
 
 const initialState = localData || {
-  email: "",
-  role: ""
+  id: "",
+  role: "",
 };
 
 export function counterReducer(state, action) {
   switch (action.type) {
     case "LOGIN":
-      const userData = {
-        email: action.payload.mail,
+      let userData = {
+        id: action.payload.id,
         role: action.payload.role
       };
       localStorage.setItem("user", JSON.stringify(userData));
@@ -50,3 +50,44 @@ export function CounterProvider({ children }) {
     </CounterContext.Provider>
   );
 }
+
+
+
+
+
+
+// import { createContext, useReducer, useContext } from "react";
+// import React from 'react';
+
+// export const CounterContext = createContext();
+
+// const initialState = {
+//   id: "",
+//   role: ""
+// };
+
+// export function counterReducer(state, action) {
+//   switch (action.type) {
+//     case "LOGIN":
+//       return {
+//         id: action.payload.id,
+//         role: action.payload.role
+//       };
+
+//     case "LOGOUT":
+//       return initialState;
+
+//     default:
+//       return state;
+//   }
+// }
+
+// export function CounterProvider({ children }) {
+//   const [state, dispatch] = useReducer(counterReducer, initialState);
+
+//   return (
+//     <CounterContext.Provider value={{ state, dispatch }}>
+//       {children}
+//     </CounterContext.Provider>
+//   );
+// }

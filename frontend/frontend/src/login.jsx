@@ -25,13 +25,11 @@ const Login = () => {
       "email": data.email, 
       "password": data.password
     })
-    console.log(repeat.data.mail, repeat.data.token,repeat.data.role)
-    if(repeat.data.mail){
+    console.log("after fetching",repeat.data.id, repeat.data.token,repeat.data.role)
+    if(repeat.data.token){
       dispatch({type:"LOGIN",payload:{...repeat.data}});
     }
-    else{
-      alert(`${repeat.message}`)
-    }
+    
     
 
     navigate(`/${repeat.data.role}`);
