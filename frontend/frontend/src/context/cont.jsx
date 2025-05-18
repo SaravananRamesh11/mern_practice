@@ -1,35 +1,52 @@
-// CounterContext.js
+
+
 import { createContext, useReducer, useContext } from "react";
+import React from 'react'; // ✅ Add this
 
 export const CounterContext = createContext();
-// Initial state
-const initialState = {
-    email:"",
-    role:""
+
+const localData = JSON.parse(localStorage.getItem("user"));
+
+const initialState = localData || {
+  email: "",
+  role: ""
 };
 
-// Reducer function
 export function counterReducer(state, action) {
   switch (action.type) {
     case "LOGIN":
-      return { email:action.payload.mail,role:action.payload.role};
+      const userData = {
+        email: action.payload.mail,
+        role: action.payload.role
+      };
+      localStorage.setItem("user", JSON.stringify(userData));
+      return userData;
+
     case "LOGOUT":
-      return { initialState };
+      localStorage.removeItem("user");
+      return { email: "", role: "" };
+
     default:
-      return {initialState};
-  } 
+      return state;
+  }
 }
 
+import { useEffect } from "react";
 
-
-// Context provider
 export function CounterProvider({ children }) {
   const [state, dispatch] = useReducer(counterReducer, initialState);
+
+  useEffect(() => {
+    const localData = localStorage.getItem("user");
+    if (localData) {
+      const parsed = JSON.parse(localData);
+      dispatch({ type: "LOGIN", payload: { mail: parsed.email, role: parsed.role } });
+    }
+  }, []);
+
   return (
     <CounterContext.Provider value={{ state, dispatch }}>
       {children}
     </CounterContext.Provider>
   );
 }
-
-

@@ -1,15 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { CounterProvider } from './context/cont'
-
+import React from 'react'; // ✅ Add this line
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.jsx';
+import { CounterProvider } from './context/cont';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <React.StrictMode>
     <CounterProvider>
       <App />
     </CounterProvider>
-    
-  </StrictMode>,
-)
+  </React.StrictMode>
+);

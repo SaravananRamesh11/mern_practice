@@ -1,4 +1,6 @@
 import { useCounter } from './hooks/conthook'; // ✅ adjust path as needed
+import React from 'react'; // ✅ Add this
+
 
 const Admin = () => {
   const{state,dispatch}=useCounter()
