@@ -7,26 +7,33 @@ const UserList = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/api/vista/getall");
-        
-        // Access the 'summas' array from the response
-        if (response.data && Array.isArray(response.data.summas)) {
-          setUsers(response.data.summas);
-        } else {
-          throw new Error('Invalid data format: expected array in "summas" field');
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-        setError(error.message);
-        setLoading(false);
-      }
-    };
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("token"); // ⬅️ Get token from localStorage
 
-    fetchUsers();
-  }, []);
+      const response = await axios.get("http://localhost:3000/api/vista/getall", {
+        headers: {
+          Authorization: `Bearer ${token}` // ⬅️ Attach token to request
+        }
+      });
+
+      if (response.data && Array.isArray(response.data.summas)) {
+        setUsers(response.data.summas);
+      } else {
+        throw new Error('Invalid data format: expected array in "summas" field');
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  fetchUsers(); // ⬅️ Don't forget to call the function
+}, []);
+
 
   const getRoleColor = (role) => {
     switch(role.toLowerCase()) { // Case-insensitive check

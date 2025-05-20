@@ -26,6 +26,12 @@ const Login = () => {
       "password": data.password
     })
     console.log("after fetching",repeat.data.id, repeat.data.token,repeat.data.role)
+    
+    if (repeat.data.token) {
+    localStorage.setItem('token', repeat.data.token);
+    console.log('Login successful!');
+  }
+
     if(repeat.data.token){
       dispatch({type:"LOGIN",payload:{...repeat.data}});
     }

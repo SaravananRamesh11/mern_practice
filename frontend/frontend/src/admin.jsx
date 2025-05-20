@@ -9,7 +9,7 @@ const Admin = () => {
   console.log(`this is the state value:${state}`)
   return (
     <div>
-      <h1>{state.email}</h1>
+      <h1>admin page</h1>
       <h2>{state.role}</h2>
       <button onClick={()=>{
       
@@ -17,6 +17,8 @@ const Admin = () => {
 
     
       }}> get all details</button>
+      <button onClick={() => {dispatch({type:"LOGOUT"})
+    navigate("/")}}>logout!!</button>
     </div>
   
   );

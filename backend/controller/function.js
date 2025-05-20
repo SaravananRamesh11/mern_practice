@@ -4,7 +4,6 @@ const summa=require("../model/SummaModel.js")
 const jwt=require("jsonwebtoken")
 const { ObjectId } = require('mongodb');
 
-
 const getAll= async(req,res)=>{
 
     
@@ -74,10 +73,6 @@ const login=async (req,res)=>{
     }
 
 }
-
-
-
-
 
 const getuser = async (req, res) => {
     try {

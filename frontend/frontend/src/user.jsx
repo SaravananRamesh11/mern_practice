@@ -18,9 +18,11 @@ function User() {
 
   return (
     <div>
-      <h1>{state.email}</h1>
+      <h1>user page</h1>
       <h2>{state.role}</h2>
       <button onClick={handleClick}>Get your details!!</button>
+      <button onClick={() => {dispatch({type:"LOGOUT"})
+    navigate("/")}}>logout!!</button>
     </div>
   );
 }

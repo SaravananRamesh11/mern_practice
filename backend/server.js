@@ -1,11 +1,15 @@
-
 const { ObjectId } = require('mongodb');
 const express = require("express");
 const app = express();
 const connectDB = require("./config/db"); // Make sure the path is correct
 const {summa}=require("./model/SummaModel")
-const {router} = require("./routes/functionalities.js");
+// const {router} = require("./routes/functionalities.js");
 
+// const Adminrouter= require("./routes/admin.js");
+// const Userrouter = require("./routes/user.js");
+// const Generalrouter = require("./routes/general.js");
+
+const {router} =require("./routes/functionalities")
 
 const cors = require('cors');
 
@@ -27,7 +31,12 @@ app.listen(3000, () => {
 connectDB();
 //middlewares
 app.use(express.json())
-app.use("/api/vista",router);
+app.use("/api/vista",router)
+
+
+// app.use("/api/vista", Adminrouter);
+// app.use("/api/vista", Userrouter);
+// app.use("/api/vista", Generalrouter);
 
 
 

@@ -24,7 +24,9 @@ export function counterReducer(state, action) {
 
     case "LOGOUT":
       localStorage.removeItem("user");
-      return { email: "", role: "" };
+      localStorage.removeItem("token");
+
+      return { id: "", role: "" };
 
     default:
       return state;
@@ -40,7 +42,7 @@ export function CounterProvider({ children }) {
     const localData = localStorage.getItem("user");
     if (localData) {
       const parsed = JSON.parse(localData);
-      dispatch({ type: "LOGIN", payload: { mail: parsed.email, role: parsed.role } });
+      dispatch({ type: "LOGIN", payload: { id: parsed.id, role: parsed.role } });
     }
   }, []);
 
