@@ -5,9 +5,9 @@ const connectDB = require("./config/db"); // Make sure the path is correct
 const {summa}=require("./model/SummaModel")
 // const {router} = require("./routes/functionalities.js");
 
-// const Adminrouter= require("./routes/admin.js");
-// const Userrouter = require("./routes/user.js");
-// const Generalrouter = require("./routes/general.js");
+const Adminrouter= require("./routes/admin.js");
+const Userrouter = require("./routes/user.js");
+const Generalrouter = require("./routes/general.js");
 
 const {router} =require("./routes/functionalities")
 
@@ -31,58 +31,26 @@ app.listen(3000, () => {
 connectDB();
 //middlewares
 app.use(express.json())
-app.use("/api/vista",router)
+app.use("/api/admin", Adminrouter);
+app.use("/api/user", Userrouter);
+app.use("/api/general", Generalrouter);
+
+app.use((err, req, res, next) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.status(statusCode).json({ message: err.message });
+});
+
+// const { StatusCodes, ReasonPhrases } = require('http-status-codes');
+
+// app.use((err, req, res, next) => {
+//   const statusCode = res.statusCode === 200 ? StatusCodes.INTERNAL_SERVER_ERROR : res.statusCode;
+//   res.status(statusCode).json({
+//     message: err.message || ReasonPhrases.INTERNAL_SERVER_ERROR,
+//   });
+// });
 
 
-// app.use("/api/vista", Adminrouter);
-// app.use("/api/vista", Userrouter);
-// app.use("/api/vista", Generalrouter);
 
 
 
 
-
-
-// app.post("/api/summa/",async(req,res)=>{
-//   try{
-//     const result=await summa.insertOne(req.body);
-//     console.log(result)
-//     res.status(200).json(result)
-
-//   }
-//   catch(error)
-//   {
-//     console.log(error)
-//   }
-
-
-// })
-
-// app.get("/api/summa",async(req,res)=>{
-//   try{
-//     const result=await summa.find()
-//     res.status(200).json(result)
-    
-//   }
-//   catch(error)
-//   {
-//       console.log(error)
-//   }
-  
-// })
-
-// app.delete("/api/summa/:id",async(req,res)=>{
-
-//   const id=req.params
-//   try{
-//     const repeat=await summa.deleteOne({_id: new ObjectId(id)})
-//     console.log(repeat)
-//     res.status(200).json({"meassage":"deleted successfully"})
-
-//   }
-//   catch(error)
-//   {
-//     console.log(error)
-//   }
-
-// })

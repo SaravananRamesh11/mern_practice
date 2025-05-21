@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useCounter } from './hooks/conthook';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 
@@ -11,6 +12,27 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const navigate = useNavigate();
   const{state,dispatch}=useCounter()
+
+
+  //used to avoid going back once cominng to the login page{importantttt}
+
+   useEffect(() => {
+    // React Router history control
+    navigate('/', { replace: true });
+    
+    // Browser history control
+    window.history.pushState(null, '', window.location.href);
+    
+    const handlePopState = () => {
+      window.history.pushState(null, '', window.location.href);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [navigate]);
   const {
     register,
     handleSubmit,
@@ -21,7 +43,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try{
        console.log('Form data:', data);
-    const repeat=await axios.post("http://localhost:3000/api/vista/login",{
+    const repeat=await axios.post("http://localhost:3000/api/general/login",{
       "email": data.email, 
       "password": data.password
     })

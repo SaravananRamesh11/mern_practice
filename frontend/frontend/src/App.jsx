@@ -8,6 +8,10 @@ import { UserDetail } from './userdetail';
 import {ProtectedRoute} from "./protected/pro"; // import your file
 
 
+import { useAutoLogout } from './hooks/useAutoLogout';
+
+
+
 
 // const App = () => {
 //   return (
@@ -32,6 +36,7 @@ import {ProtectedRoute} from "./protected/pro"; // import your file
 
 
 const App = () => {
+  useAutoLogout();
   return (
     <Router>
       <Routes>
